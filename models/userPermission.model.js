@@ -1,10 +1,9 @@
 const mongoose = require('mongoose')
 
-const PermissionSchema = new mongoose.Schema({
-    scope_id : {type : String } ,  
-    name : {type :  String} , 
-    appcation : {type : String}  ,
-    view : [
+const userPermissionSchema = new mongoose.Schema({
+    rigth_id : { type : String , require :true  } ,
+    name :  { type : String , require :true  } , 
+    views : [
         {
             name : { type : String } , 
             actions : {type : Array}  
@@ -14,4 +13,4 @@ const PermissionSchema = new mongoose.Schema({
     created_by : {type : String ,   required : true  } ,  
     updated_by : {type : String ,  required : true } ,  
 } , {timestamps :  {  createdAt: 'created_at' , updatedAt : 'updated_at' } } )
-module.exports = mongoose.model('permissions', PermissionSchema)
+module.exports = mongoose.model('user_permissions', userPermissionSchema)
