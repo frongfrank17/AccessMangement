@@ -16,7 +16,7 @@ server.patch('/permission/assignee' ,authorise.isAuthen ,permissionController.as
 server.patch('/permission/addScope' , authorise.isAuthen , permissionController.addScopeToPermission)
 server.get('/permission' ,authorise.isAuthen ,permissionController.getPermissionById )
 server.get('/history' , authorise.isAuthen , authorizationController.History )
-server.get('/realtime' , authorise.isAuthen , authorizationController.Realtime )
+server.get('/realtime' , authorise.isAuthen , authorizationController.Realtime )  
 // report&&table
 server.get('/report/student' , authorise.isAuthen , StudentController.student_table )
 server.post('/login' , authenController.access_token_ , authorise.isAuthen , permissionController.getPermission_)
