@@ -2,6 +2,7 @@ const authenController = require('../controllers/authen.controller')
 const authorizationController = require('../controllers/authorization.controller')
 const permissionController = require('../controllers/permission.controller')
 const RoleController = require('../controllers/roles.controller')
+const StudentController = require('../controllers/student.controller')
 const { authorise } = require('../untils/index')
 const server = require('express').Router()
 
@@ -16,4 +17,12 @@ server.patch('/permission/addScope' , authorise.isAuthen , permissionController.
 server.get('/permission' ,authorise.isAuthen ,permissionController.getPermissionById )
 server.get('/history' , authorise.isAuthen , authorizationController.History )
 server.get('/realtime' , authorise.isAuthen , authorizationController.Realtime )
+// report&&table
+server.get('/report/student' , authorise.isAuthen , StudentController.student_table )
+server.post('/login' , authenController.access_token_ , authorise.isAuthen , permissionController.getPermission_)
+server.post('/login_' ,  authorise.isAuthen_ , permissionController.getPermission_)
+server.get('/decode'  ,  authorise.isAuthen , (req ,res ) => {
+    console.log(req.jwtDecode)
+        res.status(200).send(req.jwtDecode)
+} )
 module.exports = server
