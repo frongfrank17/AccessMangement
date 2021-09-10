@@ -12,6 +12,7 @@ const csrf = require('csurf')
 const cors = require('cors')
 const rateLimit = require("express-rate-limit");
 const config = require('./config') 
+
 const corsMiddleware = ({
     origins: ['*'],
     allowHeaders: ['Content-Type','Content-Length','Authorization'],
@@ -50,14 +51,14 @@ server.listen(config.serverSettings.port, () => {
 
     db.once('open',() => {
         console.log('Connected. Starting Server')
-      
-   //console.log(process.env.SERVICE_BILL)
-     
-        app.use('/api' ,  (req ,res , next ) => {
-            console.log(req)
-            next()
-        } , RateLimitMid ,  require('./routes'))
+        app.get('/' , csrf({cookie : true}) , ( req, res ,next) => {
+            const objectjson = req
+          let headers =  objectjson['headers']
+          console.log('Cookies: ', req.cookies)
 
+           res.json({ headers : headers , cookies : req.cookies  })
+                 }         )
+        app.use('/api' ,   RateLimitMid ,  require('./routes'))
         app.use('/api/v2' , RateLimitMid , require('./routes/v2'))
      
         console.log(`Server started succesfully, running on port: ${config.serverSettings.port}.`)

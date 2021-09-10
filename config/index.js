@@ -14,9 +14,10 @@ module.exports = {
     },
     tokenSettings: {
         publicKey: process.env.PUBLIC_KEY_ACCESS || 'Public_keyAccessT',
-        publicKey: process.env.PUBLIC_KEY_REFRESH || 'Public_keyRefreshT',
+        publicKey_refresh: process.env.PUBLIC_KEY_REFRESH || 'Public_keyRefreshT',
         accessTokenExpiry: 60 * 1,
         privateKey: process.env.PRIVATE_KEY || 'Private_digital',
+        privateKey_refresh :process.env.PRIVATE_KEY_REFRESH || 'Private_digital_refresh', 
         refreshTokenExpiry: 60 * 2, 
     }
 }

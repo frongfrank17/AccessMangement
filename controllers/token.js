@@ -5,9 +5,9 @@ module.exports = {
 
         generateAccessToken:function (payload)  {
           
-                return jwt.sign(payload ,config.tokenSettings.privateKey, { expiresIn: config.tokenSettings.refreshTokenExpiry } )
+                return jwt.sign(payload ,config.tokenSettings.privateKey, { expiresIn:  config.tokenSettings.accessTokenExpiry  } )
         } , 
         generateRefreshToken :function (payload)  {
-                return jwt.sign(payload , config.tokenSettings.publicKey, { expiresIn: config.tokenSettings.accessTokenExpiry } )
+                return jwt.sign(payload , config.tokenSettings.privateKey, { expiresIn:  config.tokenSettings.refreshTokenExpiry} )
         }    
 } 

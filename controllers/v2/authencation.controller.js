@@ -33,13 +33,14 @@ module.exports = {
         try {
            let decode = req.jwtDecode 
 
-            if(type == "REFRESH_TOKEN") {
-
-                let u = await User.findOne({ "username" : decode.username  , "user_id" :  user_id  }  ).exec() 
-
+            if(decode.type == "REFRESH_TOKEN") {
+             
+                let u = await User.findOne({ "username" : decode.username ,  user_id:   decode.user_id }  ).exec() 
+          
                 let accessToken =  Token.generateAccessToken({ type : "ACCESS_TOKEN" , user_id : u.user_id , username : u.username , email : u.email , admin : u.admin })   
 
                 let refreshToken =  Token.generateRefreshToken({ type : "REFRESH_TOKEN" ,user_id : u.user_id , username : u.username ,  admin : u.admin })
+               
                 res.status(200).json({ type : 'bearer' , accessToken : accessToken  , refreshToken : refreshToken } )     
 
              } else {

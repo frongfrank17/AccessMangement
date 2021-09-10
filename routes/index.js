@@ -14,15 +14,16 @@ server.patch('/role/addScope' ,authorise.isAuthen , RoleController.updateRoleSco
 // Permission
 server.patch('/permission/assignee' ,authorise.isAuthen ,permissionController.assignRoletoUser )
 server.patch('/permission/addScope' , authorise.isAuthen , permissionController.addScopeToPermission)
-server.get('/permission' ,authorise.isAuthen ,permissionController.getPermissionById )
+//server.get('/permission' ,authorise.isAuthen ,permissionController.getPermissionById )
 server.get('/history' , authorise.isAuthen , authorizationController.History )
 server.get('/realtime' , authorise.isAuthen , authorizationController.Realtime )  
 // report&&table
 server.get('/report/student' , authorise.isAuthen , StudentController.student_table )
 server.post('/login' , authenController.access_token_ , authorise.isAuthen , permissionController.getPermission_)
-server.post('/login_' ,  authorise.isAuthen , permissionController.getPermission_)
+server.post('/permission' ,  authorise.isAuthen , permissionController.getPermission_)
+
 server.get('/decode'  ,  authorise.isAuthen , (req ,res ) => {
-    console.log(req.jwtDecode)
+
         res.status(200).send(req.jwtDecode)
 } )
 module.exports = server

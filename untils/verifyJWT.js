@@ -16,7 +16,9 @@ module.exports.isAuthen = (req, res, next) => {
     try {
         const decoded = jwt.verify(token ,config.tokenSettings.privateKey)
         req.jwtDecode = decoded
+
     } catch(err) {
+        
         res.statusCode = 401;
         return res.send({'message': 'Invalid Access Token'});
     }
