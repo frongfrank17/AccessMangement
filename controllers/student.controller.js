@@ -96,7 +96,7 @@ function value(number) {
                 field_id: '',
                 field: '',
                 role: 'guest',
-                active: 1,
+                active: 0,
                 updated: 'yyyy-mm-dd',
                 created: 'yyyy-mm-dd'
             },
