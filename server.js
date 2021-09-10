@@ -17,10 +17,10 @@ const corsMiddleware = ({
     allowHeaders: ['Content-Type','Content-Length','Authorization'],
 })
 const RateLimitMid = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 15 ,
+    windowMs: 1 * 60 * 1000, // 15 minutes
+    max: 30 ,
     message:
-    "Too many accounts created from this IP, please try again after an 15 Minutes "
+    "Too many accounts created from this IP, please try again after an 1 Minutes "
   });
 app.use(logger('dev'))
 app.use(express.json())
@@ -28,8 +28,6 @@ app.use(express.urlencoded( { extended:true }))
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded( {extended:true} ))
 app.use(cookieParser())
-app.use(csrf({ cookie: true }))
-
 app.use(cors(corsMiddleware))
 
 server.listen(config.serverSettings.port, () => {
@@ -55,8 +53,13 @@ server.listen(config.serverSettings.port, () => {
       
    //console.log(process.env.SERVICE_BILL)
      
-        app.use('/api' , RateLimitMid ,  require('./routes'))
+        app.use('/api' ,  (req ,res , next ) => {
+            console.log(req)
+            next()
+        } , RateLimitMid ,  require('./routes'))
+
         app.use('/api/v2' , RateLimitMid , require('./routes/v2'))
+     
         console.log(`Server started succesfully, running on port: ${config.serverSettings.port}.`)
     })
 })  
