@@ -8,18 +8,43 @@ module.exports = {
         try {
             let { username , password  } = req.body 
             console.log(req.body)
-            let check = await User.findOne(req.body ).lean().exec() 
-
+            let check = await User.findOne({ "username" : username  , "password" : password}  ).exec() 
             console.log(check)
             if(check ) {
                 let u = check
                 
-                let accessToken =  Token.generateAccessToken({ user_id : u.user_id , username : u.username , email : u.email , admin : u.admin })    
-                res.status(200).json({ type : 'bearer' , accessToken : accessToken } )     
+                let accessToken =  Token.generateAccessToken({ type : "ACCESS_TOKEN" , user_id : u.user_id , username : u.username , email : u.email , admin : u.admin })   
+
+                let refreshToken =  Token.generateRefreshToken({ type : "REFRESH_TOKEN" ,user_id : u.user_id , username : u.username ,  admin : u.admin })   
+
+                res.status(200).json({ type : 'bearer' , accessToken : accessToken  , refreshToken : refreshToken } )     
             }   else {
                 return res.status(400).send({ message : 'Invalid username password '} )
             } 
 
+           
+        }catch(err) {
+            console.log('MESSAGE : ' , err.message)
+            console.log('STACK : ' , err.stack)
+            res.status(500).json({ message : err.message} )
+        } 
+     } , 
+     refresh_token : async (req ,res ) => {
+        try {
+           let decode = req.jwtDecode 
+
+            if(type == "REFRESH_TOKEN") {
+
+                let u = await User.findOne({ "username" : decode.username  , "user_id" :  user_id  }  ).exec() 
+
+                let accessToken =  Token.generateAccessToken({ type : "ACCESS_TOKEN" , user_id : u.user_id , username : u.username , email : u.email , admin : u.admin })   
+
+                let refreshToken =  Token.generateRefreshToken({ type : "REFRESH_TOKEN" ,user_id : u.user_id , username : u.username ,  admin : u.admin })
+                res.status(200).json({ type : 'bearer' , accessToken : accessToken  , refreshToken : refreshToken } )     
+
+             } else {
+                return   res.status(400)
+             } 
            
         }catch(err) {
             console.log('MESSAGE : ' , err.message)

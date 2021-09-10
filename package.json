@@ -1,0 +1,44 @@
+{
+  "name": "auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.8",
+    "body-parser": "^1.18.3",
+    "browser-detect": "^0.2.28",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "csurf": "^1.11.0",
+    "detect-browser": "^5.1.0",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.3.0",
+    "jsonwebtoken": "^8.3.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.13.9",
+    "mongoose-unique-validator": "^2.0.1",
+    "morgan": "^1.9.0",
+    "redis": "^3.1.2",
+    "request": "^2.88.0",
+    "restify": "^7.2.1",
+    "restify-cors-middleware": "^1.1.1",
+    "save": "^2.4.0",
+    "ua-parser": "^0.3.5",
+    "uid-generator": "^2.0.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.19.4",
+    "supertest": "^3.3.0"
+  }
+}
